@@ -88,6 +88,20 @@ class PlayState extends FlxState {
 
     override public function update(elapsed:Float) {
         
+        if (dialogueManager.isOpen) {
+            player.velocity.x = 0;
+            player.velocity.y = 0;
+
+            if (FlxG.mouse.justReleased) {
+                var pos = FlxG.mouse.getWorldPosition(null, flixel.math.FlxPoint.weak());
+                if (dialogueManager.closeButton.overlapsPoint(pos, true)) {
+                    dialogueManager.clearDialogue();
+                }
+            }
+
+            return;
+        }
+
         super.update(elapsed);
 
         // npc interaction
